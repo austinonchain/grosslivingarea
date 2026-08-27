@@ -12,7 +12,10 @@ const dmSans = DM_Sans({
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'Gross Living Area | ANSI Z765 Square Footage Rules Explained',
+  title: {
+    default: 'Gross Living Area | ANSI Z765 Square Footage Rules Explained',
+    template: '%s | GrossLivingArea',
+  },
   description:
     'Plain-English answers to every square footage question: what counts as gross living area under ANSI Z765, what does not, and why.',
   openGraph: {
