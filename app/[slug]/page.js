@@ -124,7 +124,8 @@ function QuestionPage({ q }) {
   const idx = siblings.findIndex((s) => s.slug === q.slug);
   const neighbors = [siblings[idx - 1], siblings[idx + 1]].filter(Boolean);
   const related = [...neighbors, ...(q.related || []).map(getQuestion).filter(Boolean)]
-    .filter((r, i, arr) => r && r.slug !== q.slug && arr.findIndex((x) => x.slug === r.slug) === i);
+    .filter((r, i, arr) => r && r.slug !== q.slug && arr.findIndex((x) => x.slug === r.slug) === i)
+    .slice(0, 4);
   const url = `${SITE_URL}/${q.slug}`;
   return (
     <>
