@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
       <body>
         <header className="border-b border-line py-3.5">
           <div className="mx-auto max-w-[760px] px-5">
-            <Link href="/" className="text-lg font-bold text-ink no-underline">{SITE_NAME}</Link>
+            <Link href="/" className="text-lg font-bold text-ink no-underline">{SITE_NAME}.com</Link>
           </div>
         </header>
         <main className="pt-9 pb-16">
