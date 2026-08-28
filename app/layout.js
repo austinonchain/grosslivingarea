@@ -33,7 +33,16 @@ export default function RootLayout({ children }) {
       <body>
         <header className="border-b border-line py-3.5">
           <div className="mx-auto max-w-[760px] px-5">
-            <Link href="/" className="text-lg font-bold text-ink no-underline">{SITE_NAME}.com</Link>
+            <Link href="/" className="inline-flex items-center gap-2.5 text-[22px] sm:text-2xl font-bold tracking-tight text-ink no-underline">
+              <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="64" height="64" rx="12" fill="#1f5fbf"/>
+                <path d="M12 30 L32 12 L52 30" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" fill="#dbeafe"/>
+                <rect x="16" y="30" width="32" height="12" fill="#dbeafe" stroke="#ffffff" stroke-width="3"/>
+                <rect x="16" y="42" width="32" height="10" fill="#93c5fd" stroke="#ffffff" stroke-width="3" opacity="0.7"/>
+                <line x1="6" y1="42" x2="58" y2="42" stroke="#ffffff" stroke-width="3" stroke-dasharray="5 4"/>
+              </svg>
+              <span>{SITE_NAME}.com</span>
+            </Link>
           </div>
         </header>
         <main className="pt-9 pb-16">
