@@ -50,7 +50,6 @@ export default function RootLayout({ children }) {
         </main>
         <footer className="border-t border-line py-6 text-sm text-muted [&_a]:text-muted">
           <div className="mx-auto max-w-[960px] px-5">
-            <p className="mb-1 text-ink">Every article on this site is reviewed by a California Certified Residential Appraiser.</p>
             <p className="mb-0">&copy; {new Date().getFullYear()} {SITE_NAME}. General information only, not an appraisal or legal opinion.</p>
           </div>
         </footer>
