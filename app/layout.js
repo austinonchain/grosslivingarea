@@ -34,9 +34,6 @@ export default function RootLayout({ children }) {
         <header className="site">
           <div className="container">
             <Link href="/" className="brand">{SITE_NAME}</Link>
-            <nav>
-              <Link href="/">Topics</Link>
-            </nav>
           </div>
         </header>
         <main>
