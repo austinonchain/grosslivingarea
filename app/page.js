@@ -17,11 +17,11 @@ export default function Home() {
         {pillars.length === 0 ? (
           <p>Content coming soon.</p>
         ) : (
-          <div className="grid gap-5">
+          <div className="grid grid-cols-[minmax(0,1fr)] gap-5">
             {pillars.map((p) => {
               return (
-                <Link key={p.slug} href={`/${p.slug}`} className="group block overflow-hidden rounded-xl border border-line bg-white text-ink no-underline transition hover:border-accent hover:shadow-[0_6px_20px_rgba(31,95,191,.12)]">
-                  <img src={`/og/${p.slug}.png`} alt="" width={1200} height={630} className="block w-full h-auto border-b border-line" />
+                <Link key={p.slug} href={`/${p.slug}`} className="group block min-w-0 overflow-hidden rounded-xl border border-line bg-white text-ink no-underline transition hover:border-accent hover:shadow-[0_6px_20px_rgba(31,95,191,.12)]">
+                  <img src={`/og/${p.slug}.png`} alt="" width={1200} height={630} className="block w-full max-w-full h-auto border-b border-line" />
                   <div className="px-5 pt-4.5 pb-5">
                     <h3 className="mt-0 mb-2 text-[1.25rem] leading-snug">{p.title}</h3>
                     <p className="text-muted text-[15px] mb-3">{p.description}</p>
