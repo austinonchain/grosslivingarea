@@ -24,8 +24,7 @@ export default function Home() {
                 <Link key={p.slug} href={`/${p.slug}`} className="group block overflow-hidden rounded-xl border border-line bg-white text-ink no-underline transition hover:border-accent hover:shadow-[0_6px_20px_rgba(31,95,191,.12)]">
                   <img src={`/og/${p.slug}.png`} alt="" width={1200} height={630} className="block w-full h-auto border-b border-line" />
                   <div className="px-5 pt-4.5 pb-5">
-                    <span className="text-xs font-bold tracking-[.06em] uppercase text-accent">{p.shortTitle}</span>
-                    <h3 className="mt-1.5 mb-2 text-[1.25rem] leading-snug">{p.title}</h3>
+                    <h3 className="mt-0 mb-2 text-[1.25rem] leading-snug">{p.title}</h3>
                     <p className="text-muted text-[15px] mb-3">{p.description}</p>
                     <span className="text-sm font-semibold text-accent">{qs.length} questions · Read the guide &rarr;</span>
                   </div>
