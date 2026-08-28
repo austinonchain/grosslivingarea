@@ -23,6 +23,8 @@ export async function generateMetadata({ params }) {
   };
 }
 
+const TONE = { yes: 'text-green-800', no: 'text-red-800', depends: 'text-amber-800' };
+
 function fmtDate(d) {
   return new Date(d + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
@@ -42,7 +44,7 @@ export default async function EntryPage({ params }) {
 
 function Dates({ entry }) {
   return (
-    <p className="dates">
+    <p className="text-[13px] text-gray-400 -mt-1 mb-5">
       Published {fmtDate(entry.published)}{entry.updated && entry.updated !== entry.published ? ` · Updated ${fmtDate(entry.updated)}` : ''}
     </p>
   );
@@ -54,7 +56,7 @@ function Faq({ faq }) {
     <section>
       <h2>Frequently asked questions</h2>
       {faq.map((f, i) => (
-        <div key={i} className="faq">
+        <div key={i} className="[&_h3]:mb-1">
           <h3>{f.q}</h3>
           <p><Inline text={f.a} /></p>
         </div>
@@ -91,15 +93,15 @@ function PillarPage({ p }) {
         author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
         publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL } }} />
       {faqSchema(p.faq) && <JsonLd data={faqSchema(p.faq)} />}
-      <nav className="crumbs"><Link href="/">Home</Link> / <span>{p.title}</span></nav>
+      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <span>{p.title}</span></nav>
       <h1>{p.title}</h1>
       <Dates entry={p} />
-      <img className="hero" src={`/og/${p.slug}.png`} alt={p.title} width={1200} height={630} />
-      {(p.intro || []).map((para, i) => <p key={i} className={i === 0 ? 'lede' : undefined}><Inline text={para} /></p>)}
+      <img className="block w-full h-auto rounded-xl border border-gray-200 mb-5" src={`/og/${p.slug}.png`} alt={p.title} width={1200} height={630} />
+      {(p.intro || []).map((para, i) => <p key={i} className={i === 0 ? 'text-[1.1em]' : undefined}><Inline text={para} /></p>)}
       {(p.body || []).map((s, i) => <Section key={i} section={s} />)}
       <section>
         <h2>{p.childrenHeading || 'Every question in this guide'}</h2>
-        <ul className="question-list">
+        <ul className="list-none p-0 m-0 [&_li]:py-3 [&_li]:mb-0 [&_li]:border-b [&_li]:border-line [&_a]:no-underline [&_a]:font-medium">
           {qs.map((q) => (
             <li key={q.slug}><Link href={`/${q.slug}`}>{q.question}</Link></li>
           ))}
@@ -107,9 +109,9 @@ function PillarPage({ p }) {
       </section>
       <Faq faq={p.faq} />
       {others.length > 0 && (
-        <section className="pillars-other">
+        <section>
           <h2>Explore our other complete guides</h2>
-          <ul className="question-list">
+          <ul className="list-none p-0 m-0 [&_li]:py-3 [&_li]:mb-0 [&_li]:border-b [&_li]:border-line [&_a]:no-underline [&_a]:font-medium">
             {others.map((o) => <li key={o.slug}><Link href={`/${o.slug}`}>{o.title}</Link></li>)}
           </ul>
         </section>
@@ -138,12 +140,12 @@ function QuestionPage({ q }) {
         author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
         publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL } }} />
       {faqSchema(q.faq) && <JsonLd data={faqSchema(q.faq)} />}
-      <nav className="crumbs"><Link href="/">Home</Link> / <Link href={`/${p.slug}`}>{p.shortTitle || p.title}</Link> / <span>{q.question}</span></nav>
+      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${p.slug}`}>{p.shortTitle || p.title}</Link> / <span>{q.question}</span></nav>
       <h1>{q.question}</h1>
       <Dates entry={q} />
-      <img className="hero" src={`/og/${q.slug}.png`} alt={q.question} width={1200} height={630} />
-      {q.verdict && <p className={`verdict-line ${q.verdict.tone}`}>{q.verdict.label}</p>}
-      <div className="answer"><Inline text={q.shortAnswer} /></div>
+      <img className="block w-full h-auto rounded-xl border border-gray-200 mb-5" src={`/og/${q.slug}.png`} alt={q.question} width={1200} height={630} />
+      {q.verdict && <p className={`font-bold mb-2 ${TONE[q.verdict.tone] || ''}`}>{q.verdict.label}</p>}
+      <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7 text-[1.1rem]"><Inline text={q.shortAnswer} /></div>
       {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
       <Faq faq={q.faq} />
       {q.sources?.length > 0 && (
@@ -154,7 +156,7 @@ function QuestionPage({ q }) {
       )}
       <section>
         <h2>Related questions</h2>
-        <ul className="question-list">
+        <ul className="list-none p-0 m-0 [&_li]:py-3 [&_li]:mb-0 [&_li]:border-b [&_li]:border-line [&_a]:no-underline [&_a]:font-medium">
           {related.map((r) => <li key={r.slug}><Link href={`/${r.slug}`}>{r.question}</Link></li>)}
           <li><Link href={`/${p.slug}`}>Back to the full guide: {p.title}</Link></li>
         </ul>

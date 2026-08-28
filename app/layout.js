@@ -31,16 +31,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={dmSans.variable}>
       <body>
-        <header className="site">
-          <div className="container">
-            <Link href="/" className="brand">{SITE_NAME}</Link>
+        <header className="border-b border-line py-3.5">
+          <div className="mx-auto max-w-[760px] px-5">
+            <Link href="/" className="text-lg font-bold text-ink no-underline">{SITE_NAME}</Link>
           </div>
         </header>
-        <main>
-          <div className="container">{children}</div>
+        <main className="pt-9 pb-16">
+          <div className="mx-auto max-w-[760px] px-5">{children}</div>
         </main>
-        <footer className="site">
-          <div className="container">
+        <footer className="border-t border-line py-6 text-sm text-muted [&_a]:text-muted">
+          <div className="mx-auto max-w-[760px] px-5">
             &copy; {new Date().getFullYear()} {SITE_NAME}. General information only, not an appraisal or legal opinion.
           </div>
         </footer>
