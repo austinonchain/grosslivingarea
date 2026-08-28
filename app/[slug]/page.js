@@ -101,7 +101,7 @@ function PillarPage({ p }) {
         <h2>{p.childrenHeading || 'Every question in this guide'}</h2>
         <ul className="question-list">
           {qs.map((q) => (
-            <li key={q.slug}><Link href={`/${q.slug}`}>{q.question}</Link>{q.verdict ? <span className={`verdict ${q.verdict.tone}`}>{q.verdict.label}</span> : null}</li>
+            <li key={q.slug}><Link href={`/${q.slug}`}>{q.question}</Link></li>
           ))}
         </ul>
       </section>
