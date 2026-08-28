@@ -146,12 +146,6 @@ function QuestionPage({ q }) {
       <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7"><Inline text={q.shortAnswer} /></div>
       {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
       <Faq faq={q.faq} />
-      {q.sources?.length > 0 && (
-        <section>
-          <h2>Sources</h2>
-          <ul>{q.sources.map((s, i) => <li key={i}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a></li>)}</ul>
-        </section>
-      )}
       <section>
         <h2>Related questions</h2>
         <ul className="list-none p-0 m-0 [&_li]:py-3 [&_li]:mb-0 [&_li]:border-b [&_li]:border-line [&_a]:no-underline [&_a]:font-medium">
