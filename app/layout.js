@@ -1,5 +1,6 @@
 import './globals.css';
 import Link from 'next/link';
+import Script from 'next/script';
 import { DM_Sans } from 'next/font/google';
 import { SITE_URL, SITE_NAME } from '@/lib/site';
 
@@ -48,11 +49,17 @@ export default function RootLayout({ children }) {
         <main className="pt-9 pb-16">
           <div className="mx-auto max-w-[960px] px-5">{children}</div>
         </main>
-        <footer className="border-t border-line py-6 text-sm text-muted [&_a]:text-muted">
+        <footer className="border-t border-line py-6 text-sm text-muted text-center [&_a]:text-muted">
           <div className="mx-auto max-w-[960px] px-5">
+            <p className="mb-2 flex flex-wrap justify-center gap-x-5 gap-y-1">
+              <Link href="/terms">Terms</Link>
+              <Link href="/privacy">Privacy</Link>
+              <Link href="/cookies">Cookies</Link>
+            </p>
             <p className="mb-0">&copy; {new Date().getFullYear()} {SITE_NAME}. General information only, not an appraisal or legal opinion.</p>
           </div>
         </footer>
+        <Script async src="https://scripts.simpleanalyticscdn.com/latest.js" strategy="afterInteractive" />
       </body>
     </html>
   );
