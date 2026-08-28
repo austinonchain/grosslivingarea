@@ -95,7 +95,7 @@ function PillarPage({ p }) {
       <h1>{p.title}</h1>
       <Dates entry={p} />
       <img className="block w-full h-auto rounded-xl border border-gray-200 mb-5" src={`/og/${p.slug}.png`} alt={p.title} width={1200} height={630} />
-      {(p.intro || []).map((para, i) => <p key={i} className={i === 0 ? 'text-[1.1em]' : undefined}><Inline text={para} /></p>)}
+      {(p.intro || []).map((para, i) => <p key={i}><Inline text={para} /></p>)}
       {(p.body || []).map((s, i) => <Section key={i} section={s} />)}
       <section>
         <h2>{p.childrenHeading || 'Every question in this guide'}</h2>
@@ -142,7 +142,7 @@ function QuestionPage({ q }) {
       <h1>{q.question}</h1>
       <Dates entry={q} />
       <img className="block w-full h-auto rounded-xl border border-gray-200 mb-5" src={`/og/${q.slug}.png`} alt={q.question} width={1200} height={630} />
-      <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7 text-[1.1rem]"><Inline text={q.shortAnswer} /></div>
+      <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7"><Inline text={q.shortAnswer} /></div>
       {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
       <Faq faq={q.faq} />
       {q.sources?.length > 0 && (
