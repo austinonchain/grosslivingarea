@@ -23,8 +23,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const TONE = { yes: 'text-green-800', no: 'text-red-800', depends: 'text-amber-800' };
-
 function fmtDate(d) {
   return new Date(d + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
@@ -144,7 +142,6 @@ function QuestionPage({ q }) {
       <h1>{q.question}</h1>
       <Dates entry={q} />
       <img className="block w-full h-auto rounded-xl border border-gray-200 mb-5" src={`/og/${q.slug}.png`} alt={q.question} width={1200} height={630} />
-      {q.verdict && <p className={`font-bold mb-2 ${TONE[q.verdict.tone] || ''}`}>{q.verdict.label}</p>}
       <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7 text-[1.1rem]"><Inline text={q.shortAnswer} /></div>
       {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
       <Faq faq={q.faq} />
