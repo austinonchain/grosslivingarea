@@ -18,7 +18,8 @@ export async function generateMetadata({ params }) {
     title,
     description: entry.description,
     alternates: { canonical: url },
-    openGraph: { title, description: entry.description, url, type: 'article' },
+    openGraph: { title, description: entry.description, url, type: 'article', images: [{ url: `${SITE_URL}/og/${entry.slug}.png`, width: 1200, height: 630 }] },
+    twitter: { card: 'summary_large_image', images: [`${SITE_URL}/og/${entry.slug}.png`] },
   };
 }
 
@@ -93,6 +94,7 @@ function PillarPage({ p }) {
       <nav className="crumbs"><Link href="/">Home</Link> / <span>{p.title}</span></nav>
       <h1>{p.title}</h1>
       <Dates entry={p} />
+      <img className="hero" src={`/og/${p.slug}.png`} alt={p.title} width={1200} height={630} />
       {(p.intro || []).map((para, i) => <p key={i} className={i === 0 ? 'lede' : undefined}><Inline text={para} /></p>)}
       {(p.body || []).map((s, i) => <Section key={i} section={s} />)}
       <section>
@@ -139,6 +141,7 @@ function QuestionPage({ q }) {
       <nav className="crumbs"><Link href="/">Home</Link> / <Link href={`/${p.slug}`}>{p.shortTitle || p.title}</Link> / <span>{q.question}</span></nav>
       <h1>{q.question}</h1>
       <Dates entry={q} />
+      <img className="hero" src={`/og/${q.slug}.png`} alt={q.question} width={1200} height={630} />
       {q.verdict && <p className={`verdict-line ${q.verdict.tone}`}>{q.verdict.label}</p>}
       <div className="answer"><Inline text={q.shortAnswer} /></div>
       {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
