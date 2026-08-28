@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={dmSans.variable}>
       <body>
         <header className="border-b border-line py-3.5">
-          <div className="mx-auto max-w-[760px] px-5">
+          <div className="mx-auto max-w-[960px] px-5">
             <Link href="/" className="inline-flex items-center gap-2.5 text-[22px] sm:text-2xl font-bold tracking-tight text-ink no-underline">
               <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <rect width="64" height="64" rx="12" fill="#1f5fbf"/>
@@ -46,10 +46,10 @@ export default function RootLayout({ children }) {
           </div>
         </header>
         <main className="pt-9 pb-16">
-          <div className="mx-auto max-w-[760px] px-5">{children}</div>
+          <div className="mx-auto max-w-[960px] px-5">{children}</div>
         </main>
         <footer className="border-t border-line py-6 text-sm text-muted [&_a]:text-muted">
-          <div className="mx-auto max-w-[760px] px-5">
+          <div className="mx-auto max-w-[960px] px-5">
             <p className="mb-1 text-ink">Every article on this site is reviewed by a California Certified Residential Appraiser.</p>
             <p className="mb-0">&copy; {new Date().getFullYear()} {SITE_NAME}. General information only, not an appraisal or legal opinion.</p>
           </div>
