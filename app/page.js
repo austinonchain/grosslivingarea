@@ -1,21 +1,15 @@
 import Link from 'next/link';
-import { pillars, questions, questionsForPillar } from '@/lib/questions';
+import { pillars, questionsForPillar } from '@/lib/questions';
 
 export default function Home() {
   return (
     <>
       <section className="text-center pt-7 pb-9 mb-9 border-b border-line">
-        <p className="inline-block text-xs font-bold tracking-[.08em] uppercase text-accent bg-accent-soft px-3 py-1 rounded-full mb-4">ANSI Z765 square footage reference</p>
         <h1 className="text-[2rem] sm:text-[2.6rem] tracking-tight mb-3.5">Gross Living Area, Explained</h1>
         <p className="text-[1.15rem] text-muted max-w-[600px] mx-auto mb-5">
           Plain-English answers to every square footage question: what counts as gross living
           area under ANSI Z765, what does not, and why.
         </p>
-        <div className="flex flex-wrap justify-center gap-x-7 gap-y-2.5 text-sm text-muted [&_strong]:text-ink">
-          <span><strong>{questions.length}</strong> questions answered</span>
-          <span><strong>{pillars.length}</strong> complete guides</span>
-          <span><strong>ANSI Z765-2021</strong> and Fannie Mae rules</span>
-        </div>
       </section>
 
       <section>
