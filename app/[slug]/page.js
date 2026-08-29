@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { SITE_URL, SITE_NAME } from '@/lib/site';
+import { SITE_URL, SITE_NAME, ORG_ID, WEBSITE_ID, LOGO_URL } from '@/lib/site';
 import { pillars, questions, getQuestion, getPillar, questionsForPillar } from '@/lib/questions';
 import { Inline, Section } from '@/lib/render';
 
@@ -63,6 +63,26 @@ function Faq({ faq }) {
   );
 }
 
+function articleSchema(entry, headline) {
+  const url = `${SITE_URL}/${entry.slug}`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline,
+    description: entry.description,
+    url,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    image: { '@type': 'ImageObject', url: `${SITE_URL}/og/${entry.slug}.png`, width: 1200, height: 630 },
+    datePublished: entry.published,
+    dateModified: entry.updated || entry.published,
+    inLanguage: 'en-US',
+    isPartOf: { '@id': WEBSITE_ID },
+    author: { '@type': 'Organization', '@id': ORG_ID, name: SITE_NAME, url: SITE_URL },
+    publisher: { '@type': 'Organization', '@id': ORG_ID, name: SITE_NAME, url: SITE_URL, logo: { '@type': 'ImageObject', url: LOGO_URL, width: 512, height: 512 } },
+  };
+}
+
 function faqSchema(faq) {
   if (!faq?.length) return null;
   return {
@@ -86,10 +106,7 @@ function PillarPage({ p }) {
         { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
         { '@type': 'ListItem', position: 2, name: p.title, item: url },
       ] }} />
-      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'Article', headline: p.title, description: p.description, url,
-        datePublished: p.published, dateModified: p.updated || p.published,
-        author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
-        publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL } }} />
+      <JsonLd data={articleSchema(p, p.title)} />
       {faqSchema(p.faq) && <JsonLd data={faqSchema(p.faq)} />}
       <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <span>{p.title}</span></nav>
       <h1>{p.title}</h1>
@@ -134,10 +151,7 @@ function QuestionPage({ q }) {
         { '@type': 'ListItem', position: 2, name: p.title, item: `${SITE_URL}/${p.slug}` },
         { '@type': 'ListItem', position: 3, name: q.question, item: url },
       ] }} />
-      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'Article', headline: q.question, description: q.description, url,
-        datePublished: q.published, dateModified: q.updated || q.published,
-        author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
-        publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL } }} />
+      <JsonLd data={articleSchema(q, q.question)} />
       {faqSchema(q.faq) && <JsonLd data={faqSchema(q.faq)} />}
       <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${p.slug}`}>{p.shortTitle || p.title}</Link> / <span>{q.question}</span></nav>
       <h1>{q.question}</h1>

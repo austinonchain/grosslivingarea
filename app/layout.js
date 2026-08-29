@@ -2,7 +2,9 @@ import './globals.css';
 import Link from 'next/link';
 import Script from 'next/script';
 import { DM_Sans } from 'next/font/google';
-import { SITE_URL, SITE_NAME } from '@/lib/site';
+import { SITE_URL, SITE_NAME, organizationSchema, websiteSchema } from '@/lib/site';
+
+const siteJsonLd = { '@context': 'https://schema.org', '@graph': [organizationSchema, websiteSchema] };
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -32,6 +34,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={dmSans.variable}>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }} />
         <header className="border-b border-line py-3.5">
           <div className="mx-auto max-w-[960px] px-5">
             <Link href="/" className="inline-flex items-center gap-2.5 text-[22px] sm:text-2xl font-bold tracking-tight text-ink no-underline">

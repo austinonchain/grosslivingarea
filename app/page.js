@@ -1,9 +1,26 @@
 import Link from 'next/link';
 import { pillars } from '@/lib/questions';
+import { SITE_URL, ORG_ID, WEBSITE_ID } from '@/lib/site';
+
+const homeJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/#webpage`,
+  url: SITE_URL,
+  name: 'Gross Living Area, Explained',
+  isPartOf: { '@id': WEBSITE_ID },
+  about: { '@id': ORG_ID },
+  inLanguage: 'en-US',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: pillars.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.title, url: `${SITE_URL}/${p.slug}` })),
+  },
+};
 
 export default function Home() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }} />
       <section className="text-center pt-7 pb-9 mb-9 border-b border-line">
         <h1 className="text-[2rem] sm:text-[2.6rem] tracking-tight mb-3.5">Gross Living Area, Explained</h1>
         <p className="text-muted max-w-[600px] mx-auto mb-5">
