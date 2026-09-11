@@ -209,7 +209,6 @@ function StateQuestionPage({ q }) {
         <h2>Nearby states</h2>
         <ul className={linkList}>
           {nearby.map((s) => <li key={s.slug}><Link href={`/${s.q.slug}`}>{s.q.question}</Link></li>)}
-          <li><Link href={`/${hub.slug}`}>Every room type in {hub.stateName}</Link></li>
         </ul>
       </section>
     </>
