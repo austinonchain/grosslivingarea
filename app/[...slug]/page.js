@@ -251,11 +251,10 @@ function StateHubPage({ h }) {
   );
 }
 
-// /states: every state hub, with the basement numbers that set the states apart.
+// /states: every state hub. h1, one paragraph, the 50 links.
 function StatesIndexPage() {
   const x = statesIndex;
   const url = `${SITE_URL}/${x.slug}`;
-  const cell = (v) => (v == null ? 'n/a' : `${Math.round(v)}%`);
   return (
     <>
       <JsonLd data={{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
@@ -264,7 +263,6 @@ function StatesIndexPage() {
       ] }} />
       <JsonLd data={{ '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': `${url}#webpage`, url, name: x.title, description: x.description, isPartOf: { '@id': WEBSITE_ID }, inLanguage: 'en-US',
         mainEntity: { '@type': 'ItemList', itemListElement: stateHubs.map((h, i) => ({ '@type': 'ListItem', position: i + 1, name: h.stateName, url: `${SITE_URL}/${h.slug}` })) } }} />
-      {faqSchema(x.faq) && <JsonLd data={faqSchema(x.faq)} />}
       <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <span>States</span></nav>
       <h1>{x.title}</h1>
       {x.intro.map((para, i) => <p key={i}><Inline text={para} /></p>)}
@@ -274,27 +272,6 @@ function StatesIndexPage() {
           {stateHubs.map((h) => <li key={h.slug}><Link href={`/${h.slug}`}><PinIcon />{h.stateName}</Link></li>)}
         </ul>
       </section>
-      {x.sections.map((s, i) => <Section key={i} section={s} />)}
-      <section>
-        <h2>Basements by state</h2>
-        <div className="overflow-x-auto my-3 mb-5">
-          <table>
-            <thead><tr>{x.tableHead.map((h, j) => <th key={j}>{h}</th>)}</tr></thead>
-            <tbody>
-              {x.rows.map((r) => (
-                <tr key={r.slug}>
-                  <td><Link href={`/${r.slug}`}>{r.name}</Link></td>
-                  <td>{cell(r.pct_basement)}</td>
-                  <td>{cell(r.pct_finished)}</td>
-                  <td>{cell(r.pct_owners)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="text-[13px] text-gray-500">{x.tableNote}</p>
-      </section>
-      <Faq faq={x.faq} />
     </>
   );
 }
