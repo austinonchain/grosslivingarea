@@ -22,7 +22,8 @@ const { pillars, questions } = await import(path.join(repo, 'lib/questions.js'))
   // lib/questions.js uses extensionless imports; load the content files directly.
   const a = await import(path.join(repo, 'lib/content/ansi.js'));
   const c = await import(path.join(repo, 'lib/content/counts.js'));
-  return { pillars: [a.ansiPillar, c.countsPillar], questions: [...a.ansiQuestions, ...c.countsQuestions] };
+  const b = await import(path.join(repo, 'lib/content/basement-states.js'));
+  return { pillars: [a.ansiPillar, c.countsPillar], questions: [...a.ansiQuestions, ...c.countsQuestions, ...b.basementStateQuestions] };
 });
 
 const shells = readdirSync(path.join(os.homedir(), '.cache/ms-playwright')).filter((d) => d.startsWith('chromium_headless_shell-')).sort();
@@ -73,7 +74,7 @@ const html = ({ title, section }) => {
 
 const all = [
   ...pillars.map((p) => ({ slug: p.slug, title: p.title, section: 'Guide' })),
-  ...questions.map((q) => ({ slug: q.slug, title: q.question, section: (pillars.find((p) => p.slug === q.pillar) || {}).shortTitle || '' })),
+  ...questions.map((q) => ({ slug: q.slug, title: q.question, section: q.kind === 'state' ? q.stateName : ((pillars.find((p) => p.slug === q.pillar) || {}).shortTitle || '') })),
 ];
 const only = process.argv.slice(2);
 const targets = only.length ? all.filter((a) => only.includes(a.slug)) : all;

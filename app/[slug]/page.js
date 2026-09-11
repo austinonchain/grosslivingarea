@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SITE_URL, SITE_NAME, ORG_ID, WEBSITE_ID, LOGO_URL } from '@/lib/site';
-import { pillars, questions, getQuestion, getPillar, questionsForPillar } from '@/lib/questions';
+import { pillars, questions, getQuestion, getPillar, questionsForPillar, stateQuestionsFor } from '@/lib/questions';
 import { Inline, Section } from '@/lib/render';
 
 export function generateStaticParams() {
@@ -137,33 +137,47 @@ function PillarPage({ p }) {
 
 function QuestionPage({ q }) {
   const p = getPillar(q.pillar);
-  const siblings = questionsForPillar(q.pillar);
+  const parent = q.kind === 'state' ? getQuestion(q.parent) : null;
+  const siblings = q.kind === 'state' ? stateQuestionsFor(q.parent) : questionsForPillar(q.pillar);
   const idx = siblings.findIndex((s) => s.slug === q.slug);
-  const neighbors = [siblings[idx - 1], siblings[idx + 1]].filter(Boolean);
+  const neighbors = q.kind === 'state' ? [] : [siblings[idx - 1], siblings[idx + 1]].filter(Boolean);
   const related = [...neighbors, ...(q.related || []).map(getQuestion).filter(Boolean)]
     .filter((r, i, arr) => r && r.slug !== q.slug && arr.findIndex((x) => x.slug === r.slug) === i)
     .slice(0, 4);
+  const states = stateQuestionsFor(q.slug);
   const url = `${SITE_URL}/${q.slug}`;
+  const crumbs = [
+    { name: 'Home', item: SITE_URL },
+    { name: p.title, item: `${SITE_URL}/${p.slug}` },
+    ...(parent ? [{ name: parent.question, item: `${SITE_URL}/${parent.slug}` }] : []),
+    { name: q.question, item: url },
+  ];
   return (
     <>
-      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
-        { '@type': 'ListItem', position: 2, name: p.title, item: `${SITE_URL}/${p.slug}` },
-        { '@type': 'ListItem', position: 3, name: q.question, item: url },
-      ] }} />
+      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.item })) }} />
       <JsonLd data={articleSchema(q, q.question)} />
       {faqSchema(q.faq) && <JsonLd data={faqSchema(q.faq)} />}
-      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${p.slug}`}>{p.shortTitle || p.title}</Link> / <span>{q.question}</span></nav>
+      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${p.slug}`}>{p.shortTitle || p.title}</Link> / {parent && <><Link href={`/${parent.slug}`}>{parent.question}</Link> / </>}<span>{q.kind === 'state' ? q.stateName : q.question}</span></nav>
       <h1>{q.question}</h1>
       <Dates entry={q} />
       <img className="block w-full h-auto rounded-xl border border-gray-200 mb-5" src={`/og/${q.slug}.png`} alt={q.question} width={1200} height={630} />
       <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7"><Inline text={q.shortAnswer} /></div>
       {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
+      {states.length > 0 && (
+        <section>
+          <h2>{q.stateHeading || 'The answer by state'}</h2>
+          <p>The ANSI Z765 answer is the same everywhere. Each state page adds how common basements are there, how many are finished, how many owners count them, and a calculator.</p>
+          <ul className="list-none p-0 m-0 grid grid-cols-2 sm:grid-cols-3 gap-x-4 [&_li]:py-1.5 [&_li]:mb-0 [&_a]:no-underline">
+            {states.map((s) => <li key={s.slug}><Link href={`/${s.slug}`}>{s.stateName}</Link></li>)}
+          </ul>
+        </section>
+      )}
       <Faq faq={q.faq} />
       <section>
         <h2>Related questions</h2>
         <ul className="list-none p-0 m-0 [&_li]:py-3 [&_li]:mb-0 [&_li]:border-b [&_li]:border-line [&_a]:no-underline [&_a]:font-medium">
           {related.map((r) => <li key={r.slug}><Link href={`/${r.slug}`}>{r.question}</Link></li>)}
+          {parent && <li><Link href={`/${parent.slug}`}>Every state: {parent.question}</Link></li>}
           <li><Link href={`/${p.slug}`}>Back to the full guide: {p.title}</Link></li>
         </ul>
       </section>
