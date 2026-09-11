@@ -4,6 +4,7 @@ import { SITE_URL, SITE_NAME, ORG_ID, WEBSITE_ID, LOGO_URL } from '@/lib/site';
 import { pillars, questions, getQuestion, getPillar, questionsForPillar, stateHubs, getStateHub } from '@/lib/questions';
 import { getState, nearbyStates } from '@/lib/states';
 import { Inline, Section } from '@/lib/render';
+import PinIcon from '@/components/PinIcon';
 
 export function generateStaticParams() {
   return [...pillars.map((p) => ({ slug: [p.slug] })), ...stateHubs.map((h) => ({ slug: [h.slug] })), ...questions.map((q) => ({ slug: q.slug.split('/') }))];
@@ -208,7 +209,7 @@ function StateQuestionPage({ q }) {
       <section>
         <h2>Nearby states</h2>
         <ul className={linkList}>
-          {nearby.map((s) => <li key={s.slug}><Link href={`/${s.q.slug}`}>{s.name}</Link></li>)}
+          {nearby.map((s) => <li key={s.slug}><Link href={`/${s.q.slug}`}><PinIcon />{s.name}</Link></li>)}
         </ul>
       </section>
     </>
@@ -240,7 +241,7 @@ function StateHubPage({ h }) {
       <section>
         <h2>Nearby states</h2>
         <ul className={linkList}>
-          {nearby.map((s) => <li key={s.slug}><Link href={`/${s.slug}`}>{s.name}</Link></li>)}
+          {nearby.map((s) => <li key={s.slug}><Link href={`/${s.slug}`}><PinIcon />{s.name}</Link></li>)}
         </ul>
       </section>
     </>
