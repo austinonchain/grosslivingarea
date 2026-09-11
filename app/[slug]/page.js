@@ -161,7 +161,10 @@ function QuestionPage({ q }) {
       <h1>{q.question}</h1>
       {q.kind !== 'state' && <Dates entry={q} />}
       {q.kind !== 'state' && <img className="block w-full h-auto rounded-xl border border-gray-200 mb-5" src={`/og/${q.slug}.png`} alt={q.question} width={1200} height={630} />}
-      <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7"><Inline text={q.shortAnswer} /></div>
+      <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7">
+        {q.verdictLine && <p className="text-[1.35rem] sm:text-[1.5rem] leading-snug font-bold mb-2.5">{q.verdictLine}</p>}
+        <Inline text={q.shortAnswer} />
+      </div>
       {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
       {states.length > 0 && (
         <section>
