@@ -208,7 +208,7 @@ function StateQuestionPage({ q }) {
       <section>
         <h2>Nearby states</h2>
         <ul className={linkList}>
-          {nearby.map((s) => <li key={s.slug}><Link href={`/${s.q.slug}`}>{s.q.question}</Link></li>)}
+          {nearby.map((s) => <li key={s.slug}><Link href={`/${s.q.slug}`}>{s.name}</Link></li>)}
         </ul>
       </section>
     </>
@@ -234,13 +234,13 @@ function StateHubPage({ h }) {
       <section>
         <h2>Every room type in {h.stateName}</h2>
         <ul className={linkList}>
-          {h.features.map((f) => <li key={f.slug}><Link href={`/${f.slug}`}>{f.question}</Link></li>)}
+          {h.features.map((f) => <li key={f.slug}><Link href={`/${f.slug}`}>{f.label}</Link></li>)}
         </ul>
       </section>
       <section>
         <h2>Nearby states</h2>
         <ul className={linkList}>
-          {nearby.map((s) => <li key={s.slug}><Link href={`/${s.slug}`}>What counts as square footage in {s.name}?</Link></li>)}
+          {nearby.map((s) => <li key={s.slug}><Link href={`/${s.slug}`}>{s.name}</Link></li>)}
         </ul>
       </section>
     </>
