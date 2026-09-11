@@ -24,6 +24,14 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// State-page answer callout: green for a "Yes" answer, red for "No", blue accent otherwise.
+function verdictLineClasses(line = '') {
+  const t = line.trim().toLowerCase();
+  if (/^yes\b/.test(t)) return 'border-green-600 bg-green-50';
+  if (/^no\b/.test(t)) return 'border-red-600 bg-red-50';
+  return 'border-accent bg-[#f4f7fc]';
+}
+
 function fmtDate(d) {
   return new Date(d + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
@@ -193,7 +201,7 @@ function StateQuestionPage({ q }) {
       {faqSchema(q.faq) && <JsonLd data={faqSchema(q.faq)} />}
       <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${hub.slug}`}>{hub.stateName}</Link> / <span>{q.question}</span></nav>
       <h1>{q.question}</h1>
-      <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-5"><p className="text-[1.35rem] sm:text-[1.5rem] leading-snug font-bold mb-0">{q.verdictLine}</p></div>
+      <div className={`border-l-4 px-5 py-4 mb-5 ${verdictLineClasses(q.verdictLine)}`}><p className="text-[1.35rem] sm:text-[1.5rem] leading-snug font-bold mb-0">{q.verdictLine}</p></div>
       <p><Inline text={q.shortAnswer} /></p>
       {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
       <Faq faq={q.faq} />
