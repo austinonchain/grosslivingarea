@@ -11,7 +11,8 @@
 
 /* Article content is rendered from data (no className hooks), so element defaults live here. */
 @layer base {
-  html { -webkit-text-size-adjust: 100%; }
+  /* Reserve the scrollbar gutter so short pages (hubs) and long pages (state pages) share the same content width. */
+  html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; }
   body { @apply font-sans text-ink bg-white text-[17px] leading-relaxed; }
   a { @apply text-accent; }
   h1 { @apply text-[2rem] leading-tight font-bold mb-4; }
