@@ -30,11 +30,19 @@ export default function Home() {
       </section>
 
       <section>
-        <h2 className="mt-0">Complete guides</h2>
+        <h2 className="mt-0">See what counts as square footage in your state</h2>
+        <p className="text-muted">The ANSI Z765 verdict for every room type, with your state's housing data and a calculator on each page.</p>
+        <ul className="list-none p-0 m-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 [&_li]:py-1.5 [&_li]:mb-0 [&_a]:no-underline [&_a]:font-medium">
+          {stateHubs.map((h) => <li key={h.slug}><Link href={`/${h.slug}`}>{h.stateName}</Link></li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Complete guides</h2>
         {pillars.length === 0 ? (
           <p>Content coming soon.</p>
         ) : (
-          <div className="grid grid-cols-[minmax(0,1fr)] gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {pillars.map((p) => {
               return (
                 <Link key={p.slug} href={`/${p.slug}`} className="group block min-w-0 overflow-hidden rounded-xl border border-line bg-white text-ink no-underline transition hover:border-accent hover:shadow-[0_6px_20px_rgba(31,95,191,.12)]">
@@ -49,14 +57,6 @@ export default function Home() {
             })}
           </div>
         )}
-      </section>
-
-      <section>
-        <h2>See what counts as square footage in your state</h2>
-        <p className="text-muted">The ANSI Z765 verdict for every room type, with your state's housing data and a calculator on each page.</p>
-        <ul className="list-none p-0 m-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 [&_li]:py-1.5 [&_li]:mb-0 [&_a]:no-underline [&_a]:font-medium">
-          {stateHubs.map((h) => <li key={h.slug}><Link href={`/${h.slug}`}>{h.stateName}</Link></li>)}
-        </ul>
       </section>
     </>
   );
