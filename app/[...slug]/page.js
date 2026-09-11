@@ -1,16 +1,17 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SITE_URL, SITE_NAME, ORG_ID, WEBSITE_ID, LOGO_URL } from '@/lib/site';
-import { pillars, questions, getQuestion, getPillar, questionsForPillar, stateQuestionsFor } from '@/lib/questions';
+import { pillars, questions, getQuestion, getPillar, questionsForPillar, stateHubs, getStateHub } from '@/lib/questions';
+import { getState, nearbyStates } from '@/lib/states';
 import { Inline, Section } from '@/lib/render';
 
 export function generateStaticParams() {
-  return [...pillars.map((p) => ({ slug: [p.slug] })), ...questions.map((q) => ({ slug: q.slug.split('/') }))];
+  return [...pillars.map((p) => ({ slug: [p.slug] })), ...stateHubs.map((h) => ({ slug: [h.slug] })), ...questions.map((q) => ({ slug: q.slug.split('/') }))];
 }
 
 export async function generateMetadata({ params }) {
   const slug = (await params).slug.join('/');
-  const entry = getPillar(slug) || getQuestion(slug);
+  const entry = getPillar(slug) || getStateHub(slug) || getQuestion(slug);
   if (!entry) return {};
   const url = `${SITE_URL}/${entry.slug}`;
   const title = entry.metaTitle || entry.title || entry.question;
@@ -35,6 +36,8 @@ export default async function EntryPage({ params }) {
   const slug = (await params).slug.join('/');
   const pillar = getPillar(slug);
   if (pillar) return <PillarPage p={pillar} />;
+  const hub = getStateHub(slug);
+  if (hub) return <StateHubPage h={hub} />;
   const q = getQuestion(slug);
   if (!q) notFound();
   return <QuestionPage q={q} />;
@@ -136,20 +139,18 @@ function PillarPage({ p }) {
 }
 
 function QuestionPage({ q }) {
+  if (q.kind === 'state') return <StateQuestionPage q={q} />;
   const p = getPillar(q.pillar);
-  const parent = q.kind === 'state' ? getQuestion(q.parent) : null;
-  const siblings = q.kind === 'state' ? stateQuestionsFor(q.parent) : questionsForPillar(q.pillar);
+  const siblings = questionsForPillar(q.pillar);
   const idx = siblings.findIndex((s) => s.slug === q.slug);
-  const neighbors = q.kind === 'state' ? [] : [siblings[idx - 1], siblings[idx + 1]].filter(Boolean);
+  const neighbors = [siblings[idx - 1], siblings[idx + 1]].filter(Boolean);
   const related = [...neighbors, ...(q.related || []).map(getQuestion).filter(Boolean)]
     .filter((r, i, arr) => r && r.slug !== q.slug && arr.findIndex((x) => x.slug === r.slug) === i)
     .slice(0, 4);
-  const states = stateQuestionsFor(q.slug);
   const url = `${SITE_URL}/${q.slug}`;
   const crumbs = [
     { name: 'Home', item: SITE_URL },
     { name: p.title, item: `${SITE_URL}/${p.slug}` },
-    ...(parent ? [{ name: parent.question, item: `${SITE_URL}/${parent.slug}` }] : []),
     { name: q.question, item: url },
   ];
   return (
@@ -157,35 +158,82 @@ function QuestionPage({ q }) {
       <JsonLd data={{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.item })) }} />
       <JsonLd data={articleSchema(q, q.question)} />
       {faqSchema(q.faq) && <JsonLd data={faqSchema(q.faq)} />}
-      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${p.slug}`}>{p.shortTitle || p.title}</Link> / {parent && <><Link href={`/${parent.slug}`}>{parent.question}</Link> / </>}<span>{q.kind === 'state' ? q.stateName : q.question}</span></nav>
+      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${p.slug}`}>{p.shortTitle || p.title}</Link> / <span>{q.question}</span></nav>
       <h1>{q.question}</h1>
-      {q.kind !== 'state' && <Dates entry={q} />}
-      {q.kind !== 'state' && <img className="block w-full h-auto rounded-xl border border-gray-200 mb-5" src={`/og/${q.slug}.png`} alt={q.question} width={1200} height={630} />}
-      {q.verdictLine ? (
-        <>
-          <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-5"><p className="text-[1.35rem] sm:text-[1.5rem] leading-snug font-bold mb-0">{q.verdictLine}</p></div>
-          <p><Inline text={q.shortAnswer} /></p>
-        </>
-      ) : (
-        <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7"><Inline text={q.shortAnswer} /></div>
-      )}
+      <Dates entry={q} />
+      <img className="block w-full h-auto rounded-xl border border-gray-200 mb-5" src={`/og/${q.slug}.png`} alt={q.question} width={1200} height={630} />
+      <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7"><Inline text={q.shortAnswer} /></div>
       {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
-      {states.length > 0 && (
-        <section>
-          <h2>{q.stateHeading || 'The answer by state'}</h2>
-          <p>The ANSI Z765 answer is the same everywhere. Each state page adds how common basements are there, how many are finished, how many owners count them, and a calculator.</p>
-          <ul className="list-none p-0 m-0 grid grid-cols-2 sm:grid-cols-3 gap-x-4 [&_li]:py-1.5 [&_li]:mb-0 [&_a]:no-underline">
-            {states.map((s) => <li key={s.slug}><Link href={`/${s.slug}`}>{s.stateName}</Link></li>)}
-          </ul>
-        </section>
-      )}
       <Faq faq={q.faq} />
       <section>
         <h2>Related questions</h2>
         <ul className="list-none p-0 m-0 [&_li]:py-3 [&_li]:mb-0 [&_li]:border-b [&_li]:border-line [&_a]:no-underline [&_a]:font-medium">
           {related.map((r) => <li key={r.slug}><Link href={`/${r.slug}`}>{r.question}</Link></li>)}
-          {parent && <li><Link href={`/${parent.slug}`}>Every state: {parent.question}</Link></li>}
           <li><Link href={`/${p.slug}`}>Back to the full guide: {p.title}</Link></li>
+        </ul>
+      </section>
+    </>
+  );
+}
+
+const linkList = 'list-none p-0 m-0 [&_li]:py-3 [&_li]:mb-0 [&_li]:border-b [&_li]:border-line [&_a]:no-underline [&_a]:font-medium';
+
+// /<state>/<feature>: verdict headline, body, FAQ, then the same question in the five nearest states.
+function StateQuestionPage({ q }) {
+  const hub = getStateHub(q.slug.split('/')[0]);
+  const st = getState(hub.slug);
+  const feature = q.slug.split('/')[1];
+  const nearby = nearbyStates(st, 5).map((s) => ({ ...s, q: getQuestion(`${s.slug}/${feature}`) })).filter((s) => s.q);
+  const url = `${SITE_URL}/${q.slug}`;
+  const crumbs = [{ name: 'Home', item: SITE_URL }, { name: hub.stateName, item: `${SITE_URL}/${hub.slug}` }, { name: q.question, item: url }];
+  return (
+    <>
+      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.item })) }} />
+      <JsonLd data={articleSchema(q, q.question)} />
+      {faqSchema(q.faq) && <JsonLd data={faqSchema(q.faq)} />}
+      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${hub.slug}`}>{hub.stateName}</Link> / <span>{q.question}</span></nav>
+      <h1>{q.question}</h1>
+      <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-5"><p className="text-[1.35rem] sm:text-[1.5rem] leading-snug font-bold mb-0">{q.verdictLine}</p></div>
+      <p><Inline text={q.shortAnswer} /></p>
+      {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
+      <Faq faq={q.faq} />
+      <section>
+        <h2>Nearby states</h2>
+        <ul className={linkList}>
+          {nearby.map((s) => <li key={s.slug}><Link href={`/${s.q.slug}`}>{s.q.question}</Link></li>)}
+          <li><Link href={`/${hub.slug}`}>Every room type in {hub.stateName}</Link></li>
+        </ul>
+      </section>
+    </>
+  );
+}
+
+// /<state>: hub listing every room-type page for the state.
+function StateHubPage({ h }) {
+  const st = getState(h.slug);
+  const nearby = nearbyStates(st, 5);
+  const url = `${SITE_URL}/${h.slug}`;
+  return (
+    <>
+      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+        { '@type': 'ListItem', position: 2, name: h.stateName, item: url },
+      ] }} />
+      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': `${url}#webpage`, url, name: h.title, description: h.description, isPartOf: { '@id': WEBSITE_ID }, inLanguage: 'en-US',
+        mainEntity: { '@type': 'ItemList', itemListElement: h.features.map((f, i) => ({ '@type': 'ListItem', position: i + 1, name: f.question, url: `${SITE_URL}/${f.slug}` })) } }} />
+      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <span>{h.stateName}</span></nav>
+      <h1>{h.title}</h1>
+      {h.intro.map((para, i) => <p key={i}><Inline text={para} /></p>)}
+      <section>
+        <h2>Every room type in {h.stateName}</h2>
+        <ul className={linkList}>
+          {h.features.map((f) => <li key={f.slug}><Link href={`/${f.slug}`}>{f.question}</Link></li>)}
+        </ul>
+      </section>
+      <section>
+        <h2>Nearby states</h2>
+        <ul className={linkList}>
+          {nearby.map((s) => <li key={s.slug}><Link href={`/${s.slug}`}>What counts as square footage in {s.name}?</Link></li>)}
         </ul>
       </section>
     </>

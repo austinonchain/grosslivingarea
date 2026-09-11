@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { pillars } from '@/lib/questions';
+import { pillars, stateHubs } from '@/lib/questions';
 import { SITE_URL, ORG_ID, WEBSITE_ID } from '@/lib/site';
 
 const homeJsonLd = {
@@ -49,6 +49,14 @@ export default function Home() {
             })}
           </div>
         )}
+      </section>
+
+      <section>
+        <h2>See what counts as square footage in your state</h2>
+        <p className="text-muted">The ANSI Z765 verdict for every room type, with your state's housing data and a calculator on each page.</p>
+        <ul className="list-none p-0 m-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 [&_li]:py-1.5 [&_li]:mb-0 [&_a]:no-underline [&_a]:font-medium">
+          {stateHubs.map((h) => <li key={h.slug}><Link href={`/${h.slug}`}>{h.stateName}</Link></li>)}
+        </ul>
       </section>
     </>
   );
