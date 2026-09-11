@@ -5,11 +5,11 @@ import { pillars, questions, getQuestion, getPillar, questionsForPillar, stateQu
 import { Inline, Section } from '@/lib/render';
 
 export function generateStaticParams() {
-  return [...pillars.map((p) => ({ slug: p.slug })), ...questions.map((q) => ({ slug: q.slug }))];
+  return [...pillars.map((p) => ({ slug: [p.slug] })), ...questions.map((q) => ({ slug: q.slug.split('/') }))];
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
+  const slug = (await params).slug.join('/');
   const entry = getPillar(slug) || getQuestion(slug);
   if (!entry) return {};
   const url = `${SITE_URL}/${entry.slug}`;
@@ -32,7 +32,7 @@ function JsonLd({ data }) {
 }
 
 export default async function EntryPage({ params }) {
-  const { slug } = await params;
+  const slug = (await params).slug.join('/');
   const pillar = getPillar(slug);
   if (pillar) return <PillarPage p={pillar} />;
   const q = getQuestion(slug);

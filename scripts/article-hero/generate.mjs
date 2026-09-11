@@ -85,6 +85,7 @@ const tmp = path.join(os.tmpdir(), `gla-hero-${process.pid}.html`);
 mkdirSync(outRoot, { recursive: true });
 for (const a of targets) {
   const out = path.join(outRoot, `${a.slug}.png`);
+  mkdirSync(path.dirname(out), { recursive: true });
   writeFileSync(tmp, html(a));
   execFileSync(shell, ['--headless', '--no-sandbox', '--disable-gpu', '--force-device-scale-factor=1', '--hide-scrollbars', `--window-size=${WIDTH},${HEIGHT}`, `--screenshot=${out}`, `file://${tmp}`], { stdio: 'pipe' });
   if (sharp) writeFileSync(out, await sharp(out).png({ palette: true, quality: 90, compressionLevel: 9 }).toBuffer());
