@@ -24,7 +24,7 @@ export default function LineChart({ series, yMax = 100, yUnit = '%', caption, ar
         ))}
         {series.map((s, i) => {
           const last = s.points[s.points.length - 1];
-          return <text key={s.label} x={sx(last[0]) - 4} y={sy(last[1]) + (i === 0 ? -8 : 16)} textAnchor="end" fontSize="12" fontWeight="700" fill={s.color}>{s.label} {last[1]}{yUnit}</text>;
+          return <text key={s.label} x={sx(last[0]) - 10} y={sy(last[1]) + (i === 0 ? -14 : 22)} textAnchor="end" fontSize="12" fontWeight="700" fill={s.color}>{s.label} {last[1]}{yUnit}</text>;
         })}
       </svg>
       {caption && <figcaption className="text-[13px] text-muted mt-1">{caption}</figcaption>}
