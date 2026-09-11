@@ -159,7 +159,7 @@ function QuestionPage({ q }) {
       {faqSchema(q.faq) && <JsonLd data={faqSchema(q.faq)} />}
       <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${p.slug}`}>{p.shortTitle || p.title}</Link> / {parent && <><Link href={`/${parent.slug}`}>{parent.question}</Link> / </>}<span>{q.kind === 'state' ? q.stateName : q.question}</span></nav>
       <h1>{q.question}</h1>
-      <Dates entry={q} />
+      {q.kind !== 'state' && <Dates entry={q} />}
       {q.kind !== 'state' && <img className="block w-full h-auto rounded-xl border border-gray-200 mb-5" src={`/og/${q.slug}.png`} alt={q.question} width={1200} height={630} />}
       <div className="border-l-4 border-accent bg-[#f4f7fc] px-5 py-4 mb-7"><Inline text={q.shortAnswer} /></div>
       {(q.body || []).map((s, i) => <Section key={i} section={s} />)}
