@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { pillars, stateHubs } from '@/lib/questions';
+import { pillars, stateHubs, statesIndex } from '@/lib/questions';
 import { SITE_URL, ORG_ID, WEBSITE_ID } from '@/lib/site';
 
 const homeJsonLd = {
@@ -34,6 +34,7 @@ export default function Home() {
         <ul className="list-none p-0 m-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 [&_li]:py-1.5 [&_li]:mb-0 [&_a]:no-underline [&_a]:font-medium">
           {stateHubs.map((h) => <li key={h.slug}><Link href={`/${h.slug}`}>{h.stateName}</Link></li>)}
         </ul>
+        <p className="text-[15px] mt-4 mb-0"><Link href={`/${statesIndex.slug}`}>All 50 states side by side</Link></p>
       </section>
 
       <section>
