@@ -10,12 +10,12 @@ export default function PrivacyPage() {
   return (
     <article>
       <h1>Privacy Policy</h1>
-      <p className="text-muted">Effective date: August 28, 2026</p>
+      <p className="text-muted">Effective date: September 18, 2026</p>
 
       <p>GrossLivingArea.com is a reference site. There are no accounts, no sign-ups, no forms, and no cookies. This page explains the small amount of data that is collected when you visit.</p>
 
       <h2>What we collect</h2>
-      <p>We use <a href="https://www.simpleanalytics.com/" rel="noopener">Simple Analytics</a>, a privacy-first analytics service, to count page views. It does not use cookies, does not fingerprint your browser, and does not collect or store IP addresses or any other personal data. It records the page visited, the referrer, your browser type, screen size, and country, in aggregate only. We cannot identify you from it.</p>
+      <p>We use Clicky, a web analytics service, to count visits. We run it with cookies turned off, and it shortens IP addresses so they are anonymized before they are stored. It records the pages visited, the referrer, your browser and device type, screen size, and approximate location. We cannot identify you from it. The analytics script loads from our own domain and its requests are passed on to Clicky.</p>
       <p>Our hosting provider (Vercel) keeps standard server logs, which may include your IP address, for security and operational purposes. These logs are retained for a short period and are not used to build profiles.</p>
 
       <h2>What we do not do</h2>

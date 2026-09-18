@@ -62,7 +62,9 @@ export default function RootLayout({ children }) {
             <p className="mb-0">&copy; {new Date().getFullYear()} {SITE_NAME}. General information only, not an appraisal or legal opinion.</p>
           </div>
         </footer>
-        <Script async src="https://scripts.simpleanalyticscdn.com/latest.js" strategy="afterInteractive" />
+        {/* Clicky, loaded through the first-party proxy paths in next.config.mjs. Cookies stay off: /cookies and /privacy promise none. */}
+        <script dangerouslySetInnerHTML={{ __html: 'var clicky_custom=clicky_custom||{};clicky_custom.cookies_disable=1;' }} />
+        <Script async data-id="101511973" src="/565c7bd254ac8.js" strategy="afterInteractive" />
       </body>
     </html>
   );

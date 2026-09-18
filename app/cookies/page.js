@@ -10,12 +10,12 @@ export default function CookiesPage() {
   return (
     <article>
       <h1>Cookie Policy</h1>
-      <p className="text-muted">Effective date: August 28, 2026</p>
+      <p className="text-muted">Effective date: September 18, 2026</p>
 
       <p><strong>GrossLivingArea.com does not set cookies.</strong> There is nothing to accept or decline, which is why there is no cookie banner.</p>
 
       <h2>Analytics without cookies</h2>
-      <p>The only third-party script on the site is <a href="https://www.simpleanalytics.com/" rel="noopener">Simple Analytics</a>. It counts page views without cookies, without local storage, and without fingerprinting, and it does not store IP addresses. Because it collects no personal data, it does not require consent under GDPR, the ePrivacy Directive, or the CCPA.</p>
+      <p>The only third-party service on the site is Clicky, which we use to count visits. We run it with its cookies turned off, so it sets none, and the script does not use local storage. It shortens IP addresses so they are anonymized before they are stored. More detail is in our <a href="/privacy">privacy policy</a>.</p>
 
       <h2>Cookies set by others</h2>
       <p>Our host (Vercel) does not set cookies on this site. External sites we link to may set their own cookies once you leave; those are governed by their policies, not ours.</p>
