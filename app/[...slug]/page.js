@@ -1,21 +1,24 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SITE_URL, SITE_NAME, ORG_ID, WEBSITE_ID, LOGO_URL } from '@/lib/site';
-import { pillars, questions, getQuestion, getPillar, questionsForPillar, stateHubs, getStateHub, statesIndex } from '@/lib/questions';
+import { pillars, questions, getQuestion, getPillar, questionsForPillar, stateHubs, getStateHub, statesIndex, faqIndex, faqEntries, getFaq, glossaryIndex, glossaryTerms, getGlossaryTerm } from '@/lib/questions';
 import { getState, nearbyStates } from '@/lib/states';
 import { Inline, Section } from '@/lib/render';
 import PinIcon from '@/components/PinIcon';
 
 export function generateStaticParams() {
-  return [...pillars.map((p) => ({ slug: [p.slug] })), { slug: [statesIndex.slug] }, ...stateHubs.map((h) => ({ slug: [h.slug] })), ...questions.map((q) => ({ slug: q.slug.split('/') }))];
+  return [...pillars.map((p) => ({ slug: [p.slug] })), { slug: [statesIndex.slug] }, ...stateHubs.map((h) => ({ slug: [h.slug] })), ...questions.map((q) => ({ slug: q.slug.split('/') })), { slug: [faqIndex.slug] }, { slug: [glossaryIndex.slug] }, ...[...faqEntries, ...glossaryTerms].map((x) => ({ slug: x.slug.split('/') }))];
 }
 
 export async function generateMetadata({ params }) {
   const slug = (await params).slug.join('/');
-  const entry = getPillar(slug) || (slug === statesIndex.slug ? statesIndex : null) || getStateHub(slug) || getQuestion(slug);
+  const noImage = slug === faqIndex.slug ? faqIndex : slug === glossaryIndex.slug ? glossaryIndex : getFaq(slug) || getGlossaryTerm(slug);
+  const entry = getPillar(slug) || (slug === statesIndex.slug ? statesIndex : null) || getStateHub(slug) || getQuestion(slug) || noImage;
   if (!entry) return {};
   const url = `${SITE_URL}/${entry.slug}`;
   const title = entry.metaTitle || entry.title || entry.question;
+  // FAQ and glossary pages carry no images.
+  if (noImage) return { title, description: entry.description, alternates: { canonical: url }, openGraph: { title, description: entry.description, url, type: 'article' } };
   return {
     title,
     description: entry.description,
@@ -46,6 +49,12 @@ export default async function EntryPage({ params }) {
   const pillar = getPillar(slug);
   if (pillar) return <PillarPage p={pillar} />;
   if (slug === statesIndex.slug) return <StatesIndexPage />;
+  if (slug === faqIndex.slug) return <FaqIndexPage />;
+  if (slug === glossaryIndex.slug) return <GlossaryIndexPage />;
+  const faq = getFaq(slug);
+  if (faq) return <FaqPage f={faq} />;
+  const term = getGlossaryTerm(slug);
+  if (term) return <GlossaryPage t={term} />;
   const hub = getStateHub(slug);
   if (hub) return <StateHubPage h={hub} />;
   const q = getQuestion(slug);
@@ -272,6 +281,93 @@ function StatesIndexPage() {
           {stateHubs.map((h) => <li key={h.slug}><Link href={`/${h.slug}`}><PinIcon />{h.stateName}</Link></li>)}
         </ul>
       </section>
+    </>
+  );
+}
+
+function breadcrumbSchema(crumbs) {
+  return { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.item })) };
+}
+
+// Article schema for FAQ and glossary pages, which have no image.
+function plainArticleSchema(entry, headline) {
+  const { image, ...rest } = articleSchema(entry, headline);
+  return rest;
+}
+
+// /faq: h1, one paragraph, every question as a plain link.
+function FaqIndexPage() {
+  const x = faqIndex;
+  const url = `${SITE_URL}/${x.slug}`;
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema([{ name: 'Home', item: SITE_URL }, { name: 'FAQ', item: url }])} />
+      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': `${url}#webpage`, url, name: x.title, description: x.description, isPartOf: { '@id': WEBSITE_ID }, inLanguage: 'en-US',
+        mainEntity: { '@type': 'ItemList', itemListElement: faqEntries.map((f, i) => ({ '@type': 'ListItem', position: i + 1, name: f.question, url: `${SITE_URL}/${f.slug}` })) } }} />
+      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <span>FAQ</span></nav>
+      <h1>{x.title}</h1>
+      {x.intro.map((para, i) => <p key={i}>{para}</p>)}
+      <ul className={linkList}>
+        {faqEntries.map((f) => <li key={f.slug}><Link href={`/${f.slug}`}>{f.question}</Link></li>)}
+      </ul>
+    </>
+  );
+}
+
+// /faq/<slug>: breadcrumb, question, answer. Nothing else.
+function FaqPage({ f }) {
+  const url = `${SITE_URL}/${f.slug}`;
+  const text = [f.answer, ...f.more].join(' ');
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema([{ name: 'Home', item: SITE_URL }, { name: 'FAQ', item: `${SITE_URL}/${faqIndex.slug}` }, { name: f.question, item: url }])} />
+      <JsonLd data={plainArticleSchema(f, f.question)} />
+      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text } }] }} />
+      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${faqIndex.slug}`}>FAQ</Link> / <span>{f.question}</span></nav>
+      <h1>{f.question}</h1>
+      <p>{f.answer}</p>
+      {f.more.map((para, i) => <p key={i}>{para}</p>)}
+    </>
+  );
+}
+
+// /glossary: h1, one paragraph, every term with its one-line summary.
+function GlossaryIndexPage() {
+  const x = glossaryIndex;
+  const url = `${SITE_URL}/${x.slug}`;
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema([{ name: 'Home', item: SITE_URL }, { name: 'Glossary', item: url }])} />
+      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'DefinedTermSet', '@id': `${url}#termset`, url, name: x.title, description: x.description, inLanguage: 'en-US',
+        hasDefinedTerm: glossaryTerms.map((t) => ({ '@type': 'DefinedTerm', name: t.term, description: t.short, url: `${SITE_URL}/${t.slug}` })) }} />
+      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <span>Glossary</span></nav>
+      <h1>{x.title}</h1>
+      {x.intro.map((para, i) => <p key={i}>{para}</p>)}
+      <ul className="list-none p-0 m-0 [&_li]:py-3 [&_li]:mb-0 [&_li]:border-b [&_li]:border-line">
+        {glossaryTerms.map((t) => (
+          <li key={t.slug}>
+            <Link href={`/${t.slug}`} className="no-underline font-medium">{t.term}</Link>
+            <span className="block text-muted text-[15px] mt-0.5">{t.short}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+// /glossary/<slug>: term, definition, two paragraphs.
+function GlossaryPage({ t }) {
+  const url = `${SITE_URL}/${t.slug}`;
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema([{ name: 'Home', item: SITE_URL }, { name: 'Glossary', item: `${SITE_URL}/${glossaryIndex.slug}` }, { name: t.term, item: url }])} />
+      <JsonLd data={{ '@context': 'https://schema.org', '@type': 'DefinedTerm', '@id': `${url}#term`, name: t.term, description: t.definition, url,
+        inDefinedTermSet: { '@id': `${SITE_URL}/${glossaryIndex.slug}#termset` }, ...(t.wikipedia ? { sameAs: t.wikipedia } : {}) }} />
+      <JsonLd data={plainArticleSchema(t, t.term)} />
+      <nav className="text-[13px] text-gray-500 mb-2"><Link href="/">Home</Link> / <Link href={`/${glossaryIndex.slug}`}>Glossary</Link> / <span>{t.term}</span></nav>
+      <h1>{t.term}</h1>
+      <p>{t.definition}</p>
+      {t.more.map((para, i) => <p key={i}>{para}</p>)}
     </>
   );
 }

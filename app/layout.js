@@ -55,6 +55,8 @@ export default function RootLayout({ children }) {
         <footer className="border-t border-line py-6 text-sm text-muted text-center [&_a]:text-muted">
           <div className="mx-auto max-w-[960px] px-5">
             <p className="mb-2 flex flex-wrap justify-center gap-x-5 gap-y-1">
+              <Link href="/faq">FAQ</Link>
+              <Link href="/glossary">Glossary</Link>
               <Link href="/terms">Terms</Link>
               <Link href="/privacy">Privacy</Link>
               <Link href="/cookies">Cookies</Link>
