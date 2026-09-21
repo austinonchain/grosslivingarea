@@ -355,7 +355,7 @@ function GlossaryIndexPage() {
   );
 }
 
-// /glossary/<slug>: term, definition, two paragraphs.
+// /glossary/<slug>: term, definition, two paragraphs, Further reading link to Wikipedia.
 function GlossaryPage({ t }) {
   const url = `${SITE_URL}/${t.slug}`;
   return (
@@ -368,6 +368,7 @@ function GlossaryPage({ t }) {
       <h1>{t.term}</h1>
       <p>{t.definition}</p>
       {t.more.map((para, i) => <p key={i}>{para}</p>)}
+      {t.wikipedia && <p>Further reading: <a href={t.wikipedia} target="_blank" rel="noopener">{t.term} on Wikipedia</a>.</p>}
     </>
   );
 }
