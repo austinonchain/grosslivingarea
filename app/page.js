@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { pillars, stateHubs, statesIndex } from '@/lib/questions';
-import { SITE_URL, ORG_ID, WEBSITE_ID } from '@/lib/site';
+import { SITE_URL, ORG_ID, WEBSITE_ID, SITE_ENTITY } from '@/lib/site';
 
 const homeJsonLd = {
   '@context': 'https://schema.org',
@@ -24,8 +24,7 @@ export default function Home() {
       <section className="text-center pt-7 pb-9 mb-9 border-b border-line">
         <h1 className="text-[2rem] sm:text-[2.6rem] tracking-tight mb-3.5">Gross Living Area, Explained</h1>
         <p className="text-muted max-w-[600px] mx-auto mb-5">
-          Plain-English answers to every square footage question: what counts as gross living
-          area under ANSI Z765, what does not, and why.
+          {SITE_ENTITY} Plain-English answers to what counts as square footage, what does not, and why.
         </p>
       </section>
 

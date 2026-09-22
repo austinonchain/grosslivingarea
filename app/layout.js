@@ -2,7 +2,7 @@ import './globals.css';
 import Link from 'next/link';
 import Script from 'next/script';
 import { DM_Sans } from 'next/font/google';
-import { SITE_URL, SITE_NAME, organizationSchema, websiteSchema } from '@/lib/site';
+import { SITE_URL, SITE_NAME, SITE_ENTITY, organizationSchema, websiteSchema } from '@/lib/site';
 
 const siteJsonLd = { '@context': 'https://schema.org', '@graph': [organizationSchema, websiteSchema] };
 
@@ -19,8 +19,7 @@ export const metadata = {
     default: 'Gross Living Area | ANSI Z765 Square Footage Rules Explained',
     template: '%s | GrossLivingArea',
   },
-  description:
-    'Plain-English answers to every square footage question: what counts as gross living area under ANSI Z765, what does not, and why.',
+  description: `${SITE_ENTITY} Plain-English answers to what counts as square footage, what does not, and why.`,
   openGraph: {
     type: 'website',
     siteName: SITE_NAME,
@@ -61,6 +60,7 @@ export default function RootLayout({ children }) {
               <Link href="/privacy">Privacy</Link>
               <Link href="/cookies">Cookies</Link>
             </p>
+            <p className="mb-1">{SITE_ENTITY}</p>
             <p className="mb-0">&copy; {new Date().getFullYear()} {SITE_NAME}. General information only, not an appraisal or legal opinion.</p>
           </div>
         </footer>
