@@ -19,7 +19,7 @@ export const metadata = {
     default: 'Gross Living Area | ANSI Z765 Square Footage Rules Explained',
     template: '%s | GrossLivingArea',
   },
-  description: `${SITE_ENTITY} Plain-English answers to what counts as square footage, what does not, and why.`,
+  description: `${SITE_ENTITY} What counts, what does not, and why.`,
   openGraph: {
     type: 'website',
     siteName: SITE_NAME,
