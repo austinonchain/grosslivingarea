@@ -1,0 +1,119 @@
+# GrossLivingArea
+
+> GrossLivingArea.com is a reference guide to gross living area (GLA) and the ANSI Z765-2021 square footage standard. It answers "does this space count as square footage" questions for homeowners, buyers, agents and appraisers, one question per page.
+
+Key facts for accurate answers:
+
+- Free to read, no account or signup.
+- Covers ANSI Z765-2021, the residential square footage standard Fannie Mae requires for appraisals. Answers rest on ANSI Z765 plus Fannie Mae and FHA appraisal guidance.
+- The counting rules are the same in every US state. State pages differ only by data (EIA Residential Energy Consumption Survey and Census Survey of Construction figures on basements and housing), not by law.
+- GrossLivingArea explains the standard in plain English. It does not reproduce the ANSI text, and rule names such as "finished-connection rule" are the site's own shorthand, not official ANSI terminology.
+- US only. Not a building code, permit or property tax assessor guide.
+
+## Guides
+
+- [Home](https://grosslivingarea.com/): Overview of gross living area and links to both guides.
+- [ANSI Z765-2021 Explained: Every Rule in Plain English](https://grosslivingarea.com/ansi-z765-2021): ANSI Z765-2021 is the square footage standard Fannie Mae requires. Every rule in plain English: ceiling height, above grade, stairs, what counts, what never does.
+- [What Counts as Square Footage?](https://grosslivingarea.com/what-counts-as-square-footage): What is included in the square footage of a house? A counts / does not count table for every space (basements, garages, attics, porches, ADUs) under ANSI Z765.
+
+## ANSI Z765-2021 rules
+
+- [What are the ANSI ceiling height requirements for square footage?](https://grosslivingarea.com/ansi-ceiling-height-requirements)
+- [What is the difference between above grade and below grade?](https://grosslivingarea.com/above-grade-vs-below-grade)
+- [Why does ANSI measure square footage from the outside of the walls?](https://grosslivingarea.com/exterior-measurement)
+- [Do stairs count as square footage?](https://grosslivingarea.com/do-stairs-count-as-square-footage)
+- [What is the finished-connection rule in ANSI Z765?](https://grosslivingarea.com/finished-connection-rule)
+- [How precise does an ANSI Z765 measurement have to be?](https://grosslivingarea.com/ansi-rounding-precision)
+- [What does ANSI Z765 not apply to?](https://grosslivingarea.com/what-ansi-does-not-apply-to)
+- [Is there a newer version of ANSI Z765 than 2021?](https://grosslivingarea.com/ansi-z765-versions)
+- [Where can I get the ANSI Z765-2021 PDF?](https://grosslivingarea.com/ansi-z765-pdf)
+- [What is the ANSI compliance statement on an appraisal?](https://grosslivingarea.com/ansi-compliance-statement)
+- [What are the ANSI bedroom requirements?](https://grosslivingarea.com/ansi-bedroom-requirements)
+
+## What counts as square footage
+
+- [Does a basement count as square footage?](https://grosslivingarea.com/does-a-basement-count-as-square-footage)
+- [Does an unfinished basement count as square footage?](https://grosslivingarea.com/does-an-unfinished-basement-count-as-square-footage)
+- [Does a partially finished basement count as square footage?](https://grosslivingarea.com/does-a-partially-finished-basement-count-as-square-footage)
+- [Does a finished basement count as square footage?](https://grosslivingarea.com/does-a-finished-basement-count-as-square-footage)
+- [How do you make a basement count as square footage?](https://grosslivingarea.com/how-to-make-a-basement-count-as-square-footage)
+- [Does a walkout basement count as square footage?](https://grosslivingarea.com/does-a-walkout-basement-count-as-square-footage)
+- [Does a daylight or lookout basement count as square footage?](https://grosslivingarea.com/does-a-daylight-basement-count-as-square-footage)
+- [Does a basement bedroom count as square footage?](https://grosslivingarea.com/does-a-basement-bedroom-count-as-square-footage)
+- [Does the lower floor of a split-level home count as square footage?](https://grosslivingarea.com/does-a-split-level-lower-floor-count-as-square-footage)
+- [Does the lower level of a raised ranch count as square footage?](https://grosslivingarea.com/does-a-raised-ranch-lower-level-count-as-square-footage)
+- [Does the lower level of a hillside or earth-berm home count as square footage?](https://grosslivingarea.com/does-a-hillside-home-lower-level-count-as-square-footage)
+- [Do egress windows make a basement count as square footage?](https://grosslivingarea.com/do-egress-windows-count-as-square-footage)
+- [Does a finished attic count as square footage?](https://grosslivingarea.com/does-a-finished-attic-count-as-square-footage)
+- [Does a bonus room over a garage count as square footage?](https://grosslivingarea.com/does-a-bonus-room-over-a-garage-count-as-square-footage)
+- [Does a Cape Cod second floor count as square footage?](https://grosslivingarea.com/does-a-cape-cod-second-floor-count-as-square-footage)
+- [Does a loft count as square footage?](https://grosslivingarea.com/does-a-loft-count-as-square-footage)
+- [Does a garage count as square footage?](https://grosslivingarea.com/does-a-garage-count-as-square-footage)
+- [Does a garage conversion count as square footage?](https://grosslivingarea.com/does-a-garage-conversion-count-as-square-footage)
+- [Does a sunroom count as square footage?](https://grosslivingarea.com/does-a-sunroom-count-as-square-footage)
+- [Does a screened porch count as square footage?](https://grosslivingarea.com/does-a-screened-porch-count-as-square-footage)
+- [Does a breezeway count as square footage?](https://grosslivingarea.com/does-a-breezeway-count-as-square-footage)
+- [Does an unpermitted addition count as square footage?](https://grosslivingarea.com/does-an-unpermitted-addition-count-as-square-footage)
+- [Does an ADU count as square footage?](https://grosslivingarea.com/does-an-adu-count-as-square-footage)
+- [Does a guest house or garage apartment count as square footage?](https://grosslivingarea.com/does-a-garage-apartment-count-as-square-footage)
+- [Does an in-law suite count as square footage?](https://grosslivingarea.com/does-an-in-law-suite-count-as-square-footage)
+- [Does a shed, pool house, or outbuilding count as square footage?](https://grosslivingarea.com/does-a-shed-count-as-square-footage)
+- [Does a bay window count as square footage?](https://grosslivingarea.com/does-a-bay-window-count-as-square-footage)
+- [Does a cantilevered floor count as square footage?](https://grosslivingarea.com/does-a-cantilever-count-as-square-footage)
+- [Does a chimney count as square footage?](https://grosslivingarea.com/does-a-chimney-count-as-square-footage)
+- [Do closets, hallways, and bathrooms count as square footage?](https://grosslivingarea.com/do-closets-count-as-square-footage)
+- [Do laundry rooms, mechanical rooms, and under-stair storage count as square footage?](https://grosslivingarea.com/does-a-laundry-room-count-as-square-footage)
+- [Does heated space automatically count as square footage?](https://grosslivingarea.com/does-heated-space-count-as-square-footage)
+
+## Reference
+
+- [Gross Living Area FAQ](https://grosslivingarea.com/faq): Short answers to common gross living area questions.
+- [Does gross living area include the garage?](https://grosslivingarea.com/faq/does-gross-living-area-include-the-garage)
+- [What is the difference between gross floor area and gross square footage?](https://grosslivingarea.com/faq/gross-floor-area-vs-gross-square-footage)
+- [How do you calculate gross area?](https://grosslivingarea.com/faq/how-do-you-calculate-gross-area)
+- [What does gross area mean?](https://grosslivingarea.com/faq/what-does-gross-area-mean)
+- [What does gross living area include?](https://grosslivingarea.com/faq/what-does-gross-living-area-include)
+- [Does gross square footage include exterior walls?](https://grosslivingarea.com/faq/does-gross-square-footage-include-exterior-walls)
+- [What is the difference between gross area and net area?](https://grosslivingarea.com/faq/gross-area-vs-net-area)
+- [Is a bathroom considered a living space?](https://grosslivingarea.com/faq/is-a-bathroom-considered-living-space)
+- [What is not included in the square footage of a house?](https://grosslivingarea.com/faq/what-is-not-included-in-square-footage-of-a-house)
+- [What is the difference between gross living area and square footage?](https://grosslivingarea.com/faq/gross-living-area-vs-square-footage)
+- [What is considered finished square footage?](https://grosslivingarea.com/faq/what-is-considered-finished-square-footage)
+- [Why is the square footage on my appraisal different from the listing?](https://grosslivingarea.com/faq/why-is-appraisal-square-footage-different-from-listing)
+- [Gross Living Area Glossary](https://grosslivingarea.com/glossary): Definitions of square footage and appraisal terms.
+- [Gross living area](https://grosslivingarea.com/glossary/gross-living-area): The finished, above-grade living space of a house, measured to the outside of the exterior walls.
+- [American Measurement Standard](https://grosslivingarea.com/glossary/american-measurement-standard): A voluntary guide for measuring, calculating, and reporting square footage in homes.
+- [Real estate appraisal](https://grosslivingarea.com/glossary/real-estate-appraisal): An appraiser's opinion of what a property is worth, built on comparisons with similar sales.
+- [American National Standards Institute](https://grosslivingarea.com/glossary/american-national-standards-institute): The private nonprofit that accredits American standards, including ANSI Z765.
+- [Square foot](https://grosslivingarea.com/glossary/square-foot): The unit American homes are measured in, equal to about 0.0929 square meters.
+- [Building envelope](https://grosslivingarea.com/glossary/building-envelope): The walls, roof, and foundation that separate a home's inside from the outdoors.
+- [Real estate](https://grosslivingarea.com/glossary/real-estate): Land and the buildings permanently attached to it, plus the business of trading them.
+- [Basement](https://grosslivingarea.com/glossary/basement): A level of a house partly or fully below ground, reported apart from living area.
+- [Single-family detached home](https://grosslivingarea.com/glossary/single-family-detached-home): A freestanding house for one household, the property type ANSI Z765 was written for.
+- [International Property Measurement Standards](https://grosslivingarea.com/glossary/international-property-measurement-standards): Standards for measuring buildings the same way in every country.
+- [Square meter](https://grosslivingarea.com/glossary/square-meter): The metric unit of area, equal to about 10.764 square feet.
+- [Appraisal Institute](https://grosslivingarea.com/glossary/appraisal-institute): A professional association of real estate appraisers, known for the MAI and SRA designations.
+- [Uniform Standards of Professional Appraisal Practice](https://grosslivingarea.com/glossary/uspap): The ethical and performance standards U.S. appraisers follow when they appraise property.
+- [The Appraisal Foundation](https://grosslivingarea.com/glossary/appraisal-foundation): The nonprofit that writes USPAP and sets qualifications for U.S. appraisers.
+- [Mortgage](https://grosslivingarea.com/glossary/mortgage): A loan secured by a home, and the reason most home appraisals are ordered.
+- [Building Owners and Managers Association](https://grosslivingarea.com/glossary/boma): A commercial real estate group whose standards measure office and other buildings.
+- [House](https://grosslivingarea.com/glossary/house): A building people live in, and the thing gross living area measures.
+- [Mezzanine](https://grosslivingarea.com/glossary/mezzanine): A partial floor open to the level below, like a loft.
+- [Floor area ratio](https://grosslivingarea.com/glossary/floor-area-ratio): A building's total floor area divided by the area of its lot.
+- [Architecture](https://grosslivingarea.com/glossary/architecture): The design of buildings, where floor plans and wall lines are set.
+- [Zoning](https://grosslivingarea.com/glossary/zoning): Local rules that control how land can be used and what can be built on it.
+
+## States
+
+- [What Counts as Square Footage in Every State](https://grosslivingarea.com/states): Index of all 50 state hubs with basement square footage pages.
+- [Ohio](https://grosslivingarea.com/ohio): Example state hub.
+- [Texas](https://grosslivingarea.com/texas): Example state hub.
+- [Does a basement count as square footage in Pennsylvania?](https://grosslivingarea.com/pennsylvania/basement): Example state page with state housing data.
+- [Does a finished basement count as square footage in Ohio?](https://grosslivingarea.com/ohio/finished-basement): Example state page.
+- [Does a walkout basement count as square footage in New York?](https://grosslivingarea.com/new-york/walkout-basement): Example state page.
+
+## Optional
+
+- [Privacy](https://grosslivingarea.com/privacy)
+- [Cookies](https://grosslivingarea.com/cookies)
+- [Terms](https://grosslivingarea.com/terms)
