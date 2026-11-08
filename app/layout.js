@@ -1,15 +1,17 @@
 import './globals.css';
 import Link from 'next/link';
 import Script from 'next/script';
-import { DM_Sans } from 'next/font/google';
+// Fonts are vendored (./fonts) instead of next/font/google: Google Fonts began serving
+// /l/font?kit= URLs that Next 16's Turbopack font loader rejects, failing Vercel builds (2026-11-08).
+import localFont from 'next/font/local';
 import { SITE_URL, SITE_NAME, SITE_ENTITY, organizationSchema, websiteSchema } from '@/lib/site';
 
 const siteJsonLd = { '@context': 'https://schema.org', '@graph': [organizationSchema, websiteSchema] };
 
-const dmSans = DM_Sans({
-  subsets: ['latin'],
+const dmSans = localFont({
+  src: './fonts/dm-sans-latin-var.woff2',
   variable: '--font-dm-sans',
-  weight: ['400', '500', '700'],
+  weight: '100 1000',
   display: 'swap',
 });
 
